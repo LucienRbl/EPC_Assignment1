@@ -78,12 +78,7 @@ namespace epc
                 size_++;
             }
             else {
-                if (capacity_ == 0) {
-                    this->reserve(1);
-                }
-                else {
-                    this->reserve(capacity_ * GROW_FACTOR);
-                }
+                this->reserve(capacity_ == 0 ? 1 : capacity_ * GROW_FACTOR);
                 this->push_back(value);
             }
         }
@@ -116,18 +111,9 @@ namespace epc
         size_t size() const { return size_; }
 
         void swap(vector& other) noexcept {
-
-            size_t capacity_tmp = capacity_;
-            size_t size_tmp = size_;
-            T* data_tmp = data_;
-
-            capacity_ = other.capacity_;
-            size_ = other.size_;
-            data_=other.data_;
-
-            other.capacity_ = capacity_tmp;
-            other.size_ = size_tmp;
-            other.data_ = data_tmp;
+            std::swap(capacity_,other.capacity_);
+            std::swap(size_,other.size_);
+            std::swap(data_,other.data_);
         }
     };
 }
